@@ -3,68 +3,82 @@
 @section('title', 'Beranda | BPS Kabupaten Pasuruan')
 
 @section('content')
-<section class="hero-split" id="home"
-    style="background-image:url('{{ asset('images/bromo.jpg') }}')">
+<section class="hero-split hero-profile" id="home">
     <div class="hero-overlay"></div>
 
     <div class="hero-container">
 
-        <!-- TEXT KIRI -->
-        <div class="hero-text">
-            <h1>SATU DATA, BANYAK MAKNA<br>MENGHADIRKAN DATA AKURAT<br>DAN TERPERCAYA</h1>
+        <div class="hero-photo-profile">
+            <img src="https://i0.wp.com/abouttng.com/wp-content/uploads/2015/12/Foto-bersama.jpg?resize=1024%2C634&ssl=1" alt="Foto Bersama">
+        </div>
+       <div class="hero-text-profile">
+    <img src="{{ asset('images/bps1.png') }}" alt="Logo BPS" class="hero-logo">
+
+    <h1>
+        SATU DATA, BANYAK MAKNA<br>
+        MENGHADIRKAN DATA AKURAT<br>
+        DAN TERPERCAYA
+    </h1>
+
+    <p>
+        untuk mendukung<br>
+        pembangunan<br>
+        kabupaten pasuruan
+    </p>
+</div>
+
+
+    </div>
+</section>
+
+<section class="section-program-bps">
+    <div class="program-container">
+
+        <div class="program-card orange">
+            <img src="{{ asset('images/download.jpg') }}" alt="Internalisasi">
+            <h3>Internalisasi</h3>
             <p>
-                untuk mendukung<br>pembangunan<br>kabupaten pasuruan
+                Penerapan statistik dalam
+                penyelenggaraan statistik
+                sektoral di daerahajldsjfajfd
+                ajlkdfjlajfd
+                alsjdfjalkdfa
+                aldfjasalsdlfajfldajlfjlkafj;lajfla
+                a;lkdfjalkjfldajlfajd
+                a;lkdfjalfdjlajfda
+                lkajlfdjlajflksajflajfdjklajlfsajlf
             </p>
         </div>
 
-        <!-- FOTO KANAN -->
-        <div class="hero-photo">
-            <img src="https://i0.wp.com/abouttng.com/wp-content/uploads/2015/12/Foto-bersama.jpg?resize=1024%2C634&ssl=1" alt="Foto Bersama">
+        <div class="program-card green">
+            <img src="{{ asset('images/download.jpg') }}" alt="Koordinasi">
+            <h3>Koordinasi Sektoral</h3>
+            <p>
+                Upaya penyelarasan
+                penyelenggaraan statistik
+                sektoral agar terintegrasi
+            </p>
         </div>
 
-    </div>
-</section>
-
-<section class="section-statistik">
-    <div class="container">
-        <h2 class="statistik-title">
-            <span class="statistik-light">PERKEMBANGAN</span><br>
-            PEMBINAAN STATISTIK<br>
-            SEKTORAL 2026
-        </h2>
-    </div>
-</section>
-
-<section class="diagram-section">
-    <div class="diagram-container">
-        <div class="diagram-card">
-            <img src="https://akcdn.detik.net.id/community/media/visual/2023/10/14/diagram-batang-mendatar.jpeg?w=800" alt="Diagram 1">
+        <div class="program-card blue">
+            <img src="{{ asset('images/download.jpg') }}" alt="Romantik">
+            <h3>Romantik</h3>
+            <p>
+                Rekomendasi kegiatan statistik
+                melalui pembinaan statistik
+                sektoral
+            </p>
         </div>
-        <div class="diagram-card">
-            <img src="https://akcdn.detik.net.id/community/media/visual/2023/10/14/diagram-batang-mendatar.jpeg?w=800" alt="Diagram 2">
-        </div>
-        <div class="diagram-card">
-            <img src="https://akcdn.detik.net.id/community/media/visual/2023/10/14/diagram-batang-mendatar.jpeg?w=800" alt="Diagram 3">
-        </div>
-    </div>
-</section>
 
-<section class="section-target-pss">
-    <div class="container">
-        <h2 class="target-pss-title">
-            TARGET BULANAN PEMBINAAN STATISTIK SEKTORAL (PSS)
-        </h2>
-    </div>
-</section>
+        <div class="program-card purple">
+            <img src="{{ asset('images/download.jpg') }}" alt="Evaluasi">
+            <h3>Evaluasi</h3>
+            <p>
+                Penilaian hasil pembinaan
+                statistik sektoral di OPD
+            </p>
+        </div>
 
-<section class="section-checklist-pss">
-    <div class="container">
-        <ul class="checklist-pss">
-            <li>Pendampingan statistik sektoral OPD prioritas</li>
-            <li>Peningkatan pemahaman standar statistik</li>
-            <li>Perbaikan metadata dan kualitas data sektoral</li>
-            <li>Monitoring dan evaluasi kegiatan statistik sektoral</li>
-        </ul>
     </div>
 </section>
 
@@ -113,34 +127,32 @@
         </div>
     </div>
 </section> --}}
-<section id="fungsi" class="section-blue">
-    <div class="container">
-        <h2 class="statistik-title">
-            <span class="statistik-light">KEGIATAN</span><br>
-            PEMBINAAN<br>
-            STATISTIK SEKTORAL
-        </h2>
-        <div class="news-feed-container" id="scrollContainer">
-            @php
-                $trending = [
-                    ['title' => 'Gaming Industry 2026', 'desc' => 'Konsol generasi baru rilis bulan depan.', 'img' => 'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600'],
-                    ['title' => 'Artikel Coding', 'desc' => 'Tutorial Python untuk pemula.', 'img' => 'https://images.unsplash.com/photo-1493612276216-ee3925520721?w=600'],
-                    ['title' => 'Supercar Listrik', 'desc' => 'Kecepatan 0-100 hanya 1.9 detik.', 'img' => 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600'],
-                    ['title' => 'Cuaca Ekstrem', 'desc' => 'Badai salju melanda Eropa utara.', 'img' => 'https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=600'],
-                ];
-            @endphp
 
-            @foreach($trending as $item)
-            <div class="news-card-trending">
-                <img src="{{ $item['img'] }}" alt="">
-                <div class="overlay-trending"></div>
-                <div class="content-trending">
-                    <h2>{{ $item['title'] }}</h2>
-                    <p>{{ $item['desc'] }}</p>
-                </div>
-            </div>
-            @endforeach
+<section class="hero-alt" id="hero-alt">
+    <div class="hero-alt-container">
+
+        <!-- TEXT -->
+        <div class="hero-alt-text">
+            <img src="{{ asset('images/bps1.png') }}" alt="Logo BPS" class="hero-alt-logo">
+
+            <h1>
+                SATU DATA<br>
+                UNTUK NEGERI
+            </h1>
+
+            <p>
+                Badan Pusat Statistik Kabupaten Pasuruan berkomitmen
+                menyediakan data yang akurat, mutakhir, dan terpercaya
+                sebagai dasar perencanaan pembangunan daerah.
+            </p>
         </div>
+
+        <!-- IMAGE -->
+        <div class="hero-alt-image">
+            <img src="https://i0.wp.com/abouttng.com/wp-content/uploads/2015/12/Foto-bersama.jpg?resize=1024%2C634&ssl=1"
+                 alt="Kegiatan BPS">
+        </div>
+
     </div>
 </section>
 
