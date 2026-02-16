@@ -114,10 +114,7 @@
             <img src="{{ asset('images/bps.png') }}" alt="Logo BPS">
             <h3>ADMIN PANEL</h3>
         </div>
-       <ul class="nav-list">
-    <li class="nav-item {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-        <a href="{{ route('admin.dashboard') }}"><i class="fas fa-home"></i> Dashboard</a>
-    </li>
+      <ul class="nav-list">
 
     <li class="nav-item {{ request()->routeIs('admin.kegiatan') ? 'active' : '' }}">
         <a href="{{ route('admin.kegiatan') }}"><i class="fas fa-camera"></i> Kelola Kegiatan</a>
@@ -127,9 +124,23 @@
         <a href="{{ route('admin.target') }}"><i class="fas fa-bullseye"></i> Target Utama</a>
     </li>
 
+    <li class="nav-item {{ request()->routeIs('admin.users.index') ? 'active' : '' }}">
+        <a href="{{ route('admin.users.index') }}"><i class="fas fa-users-cog"></i> Kelola Admin</a>
+    </li>
+
     <li style="padding: 20px 25px; font-size: 11px; color: #475569; text-transform: uppercase;">External</li>
+    
     <li class="nav-item">
         <a href="{{ route('home') }}"><i class="fas fa-external-link-alt"></i> Ke Landing Page</a>
+    </li>
+
+    <li class="nav-item" style="border-top: 1px solid rgba(255,255,255,0.05); margin-top: 10px;">
+        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="color: #fb7185;">
+            <i class="fas fa-sign-out-alt"></i> Keluar
+        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
     </li>
 </ul>
     </aside>
@@ -140,10 +151,11 @@
                 <i class="fas fa-bars" id="toggleMenu" style="margin-right: 15px; cursor: pointer; color: var(--text-dark);"></i>
                 Admin / <strong>Dashboard</strong>
             </div>
-            <div class="user-profile">
-                <span>Halo, Administrator</span>
-                <img src="https://ui-avatars.com/api/?name=Admin+BPS&background=0093DD&color=fff" alt="User">
-            </div>
+           <div class="user-profile">
+    <span>Halo, {{ auth()->user()->name }}</span>
+    
+    <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=0093DD&color=fff" alt="User">
+</div>
         </header>
 
         <main class="container">
