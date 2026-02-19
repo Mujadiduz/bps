@@ -3,156 +3,64 @@
 @section('title', 'Beranda | BPS Kabupaten Pasuruan')
 
 @section('content')
-<section class="hero-split hero-profile" id="home">
-    <div class="hero-overlay"></div>
-
+{{-- HERO PROFILE --}}
+<section class="hero-split hero-profile">
     <div class="hero-container">
-
         <div class="hero-photo-profile">
-            <img src="https://i0.wp.com/abouttng.com/wp-content/uploads/2015/12/Foto-bersama.jpg?resize=1024%2C634&ssl=1" alt="Foto Bersama">
+            <img src="{{ isset($settings['profile_hero_image']) ? asset('storage/'.$settings['profile_hero_image']) : 'https://via.placeholder.com/800x600' }}" alt="Hero Profile">
         </div>
-       <div class="hero-text-profile">
-    <img src="{{ asset('images/bps1.png') }}" alt="Logo BPS" class="hero-logo">
-
-    <h1>
-        SATU DATA, BANYAK MAKNA<br>
-        MENGHADIRKAN DATA AKURAT<br>
-        DAN TERPERCAYA
-    </h1>
-
-    <p>
-        untuk mendukung<br>
-        pembangunan<br>
-        kabupaten pasuruan
-    </p>
-</div>
-
-
+        <div class="hero-text-profile">
+            <img src="{{ asset('images/bps1.png') }}" alt="Logo BPS" class="hero-logo">
+            <h1>{!! $settings['profile_hero_title'] ?? 'SATU DATA, BANYAK MAKNA...' !!}</h1>
+            <p>{!! nl2br(e($settings['profile_hero_subtitle'] ?? 'untuk mendukung pembangunan kabupaten pasuruan')) !!}</p>
+        </div>
     </div>
 </section>
 
+{{-- PROGRAM SECTION (Grid 3 Kolom) --}}
+{{-- SECTION PROGRAM --}}
 <section class="section-program-bps">
-    <div class="program-container">
+    <div class="program-container" style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+        @php
+            // Daftar class warna yang tersedia di CSS Anda
+            $colors = ['orange', 'green', 'blue', 'purple'];
+        @endphp
 
-        <div class="program-card orange">
-            <img src="{{ asset('images/download.jpg') }}" alt="Internalisasi">
-            <h3>Internalisasi</h3>
-            <p>
-                Penerapan statistik dalam
-                penyelenggaraan statistik
-                sektoral di daerahajldsjfajfd
-                ajlkdfjlajfd
-                alsjdfjalkdfa
-                aldfjasalsdlfajfldajlfjlkafj;lajfla
-                a;lkdfjalkjfldajlfajd
-                a;lkdfjalfdjlajfda
-                lkajlfdjlajflksajflajfdjklajlfsajlf
-            </p>
-        </div>
+        @foreach($programs as $prog)
+            {{-- Mengambil warna berdasarkan urutan: 0=orange, 1=green, dst. --}}
+            @php $currentColor = $colors[$loop->index % count($colors)]; @endphp
 
-        <div class="program-card green">
-            <img src="{{ asset('images/download.jpg') }}" alt="Koordinasi">
-            <h3>Koordinasi Sektoral</h3>
-            <p>
-                Upaya penyelarasan
-                penyelenggaraan statistik
-                sektoral agar terintegrasi
-            </p>
-        </div>
-
-        <div class="program-card blue">
-            <img src="{{ asset('images/download.jpg') }}" alt="Romantik">
-            <h3>Romantik</h3>
-            <p>
-                Rekomendasi kegiatan statistik
-                melalui pembinaan statistik
-                sektoral
-            </p>
-        </div>
-
-        <div class="program-card purple">
-            <img src="{{ asset('images/download.jpg') }}" alt="Evaluasi">
-            <h3>Evaluasi</h3>
-            <p>
-                Penilaian hasil pembinaan
-                statistik sektoral di OPD
-            </p>
-        </div>
-
+            <div class="program-card {{ $currentColor }}" style="flex: 0 0 calc(33.333% - 20px); min-width: 280px; box-sizing: border-box;">
+                <img src="{{ asset('storage/' . $prog->foto) }}" alt="{{ $prog->judul }}">
+                <h3>{{ $prog->judul }}</h3>
+                <p>{{ $prog->deskripsi }}</p>
+                
+                {{-- Tombol hapus (hanya muncul jika login sebagai admin) --}}
+                @auth
+                <form action="{{ route('admin.program.destroy', $prog->id) }}" method="POST" style="margin-top: 10px;">
+                    @csrf @method('DELETE')
+                    <button type="submit" style="background: rgba(255,255,255,0.2); border: 1px solid white; color: white; cursor: pointer; padding: 5px 10px; border-radius: 4px;">Hapus</button>
+                </form>
+                @endauth
+            </div>
+        @endforeach
     </div>
 </section>
 
-
-
-{{-- <section id="hirarki" class="section-green">
-    <div class="container">
-        <h2 class="section-title">Berita Terkini</h2>
-        <div class="grid humas-grid">
-            <div class="humas-card">
-                <img src="{{ asset('images/test2.jpg') }}" alt="Kegiatan">
-                <div class="humas-content">
-                    <span class="date">12 Januari 2026</span>
-                    <h3>Sosialisasi Statistik Sektoral</h3>
-                    <p>Kegiatan sosialisasi statistik sektoral guna meningkatkan kualitas data.</p>
-                </div>
-            </div>
-            <div class="humas-card">
-                <img src="{{ asset('images/test2.jpg') }}" alt="Rapat">
-                <div class="humas-content">
-                    <span class="date">05 Januari 2026</span>
-                    <h3>Rapat Koordinasi Data</h3>
-                    <p>Rapat koordinasi internal dalam rangka penyusunan publikasi statistik daerah.</p>
-                </div>
-            </div>
-            <div class="humas-card">
-                <img src="{{ asset('images/test2.jpg') }}" alt="Pelatihan">
-                <div class="humas-content">
-                    <span class="date">20 Desember 2025</span>
-                    <h3>Pelatihan Pengolahan Data</h3>
-                    <p>Pelatihan pengolahan dan analisis data statistik bagi pegawai.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> --}}
-
-{{-- <section id="kontak" class="section-dark">
-    <div class="container">
-        <h2 class="section-title">Kumpulan Link BPS</h2>
-        <div class="contact-icons">
-            <a href="#" class="contact-item" data-tooltip="Rekomendasi"><img src="{{ asset('images/romantik.png') }}"><span>Rekomendasi</span></a>
-            <a href="#" class="contact-item" data-tooltip="Sirusa"><img src="{{ asset('images/sirusa.png') }}" class="icon-big"><span>Sirusa</span></a>
-            <a href="#" class="contact-item" data-tooltip="Indah Hub"><img src="{{ asset('images/indah.png') }}" class="icon-big"><span>Indah Hub</span></a>
-            <button class="contact-item" onclick="openModal()"><img src="{{ asset('images/spbe.png') }}"><span>Website Pembinaan</span></button>
-        </div>
-    </div>
-</section> --}}
-
-<section class="hero-alt" id="hero-alt">
+{{-- SECTION SATU DATA UNTUK NEGERI --}}
+<section class="hero-alt">
     <div class="hero-alt-container">
-
-        <!-- TEXT -->
         <div class="hero-alt-text">
             <img src="{{ asset('images/bps1.png') }}" alt="Logo BPS" class="hero-alt-logo">
-
-            <h1>
-                SATU DATA<br>
-                UNTUK NEGERI
-            </h1>
-
-            <p>
-                Badan Pusat Statistik Kabupaten Pasuruan berkomitmen
-                menyediakan data yang akurat, mutakhir, dan terpercaya
-                sebagai dasar perencanaan pembangunan daerah.
-            </p>
+            
+            {{-- Ubah bagian ini --}}
+            <h1>{!! nl2br(e($settings['profile_footer_title'] ?? 'SATU DATA UNTUK NEGERI')) !!}</h1>
+            
+            <p>{{ $settings['profile_footer_text'] ?? 'Badan Pusat Statistik Kabupaten Pasuruan berkomitmen...' }}</p>
         </div>
-
-        <!-- IMAGE -->
         <div class="hero-alt-image">
-            <img src="https://i0.wp.com/abouttng.com/wp-content/uploads/2015/12/Foto-bersama.jpg?resize=1024%2C634&ssl=1"
-                 alt="Kegiatan BPS">
+            <img src="{{ isset($settings['profile_footer_image']) ? asset('storage/'.$settings['profile_footer_image']) : 'https://via.placeholder.com/800x600' }}" alt="Kegiatan BPS">
         </div>
-
     </div>
 </section>
 

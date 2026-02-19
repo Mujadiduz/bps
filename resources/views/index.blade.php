@@ -3,52 +3,60 @@
 @section('title', 'Beranda | BPS Kabupaten Pasuruan')
 
 @section('content')
+{{-- HERO SECTION --}}
 <section class="hero-split" id="home"
     style="background-image:url('{{ asset('images/bromo.jpg') }}')">
     <div class="hero-overlay"></div>
 
     <div class="hero-container">
-
-        <!-- TEXT KIRI -->
         <div class="hero-text">
-            <h1>SATU DATA, BANYAK MAKNA<br>MENGHADIRKAN DATA AKURAT<br>DAN TERPERCAYA</h1>
+            <h1>{!! $settings['hero_title'] ?? 'SATU DATA, BANYAK MAKNA<br>MENGHADIRKAN DATA AKURAT<br>DAN TERPERCAYA' !!}</h1>
             <p>
-                untuk mendukung<br>pembangunan<br>kabupaten pasuruan
+                {!! nl2br(e($settings['hero_subtitle'] ?? "untuk mendukung\npembangunan\nkabupaten pasuruan")) !!}
             </p>
         </div>
 
-        <!-- FOTO KANAN -->
         <div class="hero-photo">
-            <img src="https://i0.wp.com/abouttng.com/wp-content/uploads/2015/12/Foto-bersama.jpg?resize=1024%2C634&ssl=1" alt="Foto Bersama">
-        </div>
-
+    @if(isset($settings['hero_image']))
+        <img src="{{ asset('storage/' . $settings['hero_image']) }}" alt="Foto Hero BPS">
+    @else
+        {{-- Gambar default jika admin belum upload --}}
+        <img src="https://i0.wp.com/abouttng.com/wp-content/uploads/2015/12/Foto-bersama.jpg?resize=1024%2C634&ssl=1" alt="Foto Bersama">
+    @endif
+</div>
     </div>
 </section>
 
+{{-- SECTION PERKEMBANGAN (Judul) --}}
 <section class="section-statistik">
     <div class="container">
         <h2 class="statistik-title">
             <span class="statistik-light">PERKEMBANGAN</span><br>
             PEMBINAAN STATISTIK<br>
-            SEKTORAL 2026
+            SEKTORAL {{ date('Y') }}
         </h2>
     </div>
 </section>
 
-<section class="diagram-section">
-    <div class="diagram-container">
-        <div class="diagram-card">
-            <img src="https://akcdn.detik.net.id/community/media/visual/2023/10/14/diagram-batang-mendatar.jpeg?w=800" alt="Diagram 1">
-        </div>
-        <div class="diagram-card">
-            <img src="https://akcdn.detik.net.id/community/media/visual/2023/10/14/diagram-batang-mendatar.jpeg?w=800" alt="Diagram 2">
-        </div>
-        <div class="diagram-card">
-            <img src="https://akcdn.detik.net.id/community/media/visual/2023/10/14/diagram-batang-mendatar.jpeg?w=800" alt="Diagram 3">
+{{-- SECTION DIAGRAM --}}
+<section class="diagram-section" style="padding: 50px 0;">
+    <div class="container">
+        <div class="diagram-flex-container" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+            @forelse($diagrams as $diagram)
+                <div class="diagram-card" style="flex: 0 0 calc(33.333% - 30px); min-width: 300px; box-sizing: border-box;">
+                    <div style="background: white; padding: 15px; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: 0.3s;">
+                        <img src="{{ asset('storage/' . $diagram->foto) }}" alt="Diagram Perkembangan" 
+                             style="width: 100%; height: auto; border-radius: 10px; display: block;">
+                    </div>
+                </div>
+            @empty
+                <p style="text-align: center; color: #666; width: 100%;">Belum ada data perkembangan yang diunggah.</p>
+            @endforelse
         </div>
     </div>
 </section>
 
+{{-- SECTION TARGET PSS --}}
 <section class="section-target-pss">
     <div class="container">
         <h2 class="target-pss-title">
@@ -60,59 +68,22 @@
 <section class="section-checklist-pss">
     <div class="container">
         <ul class="checklist-pss">
-            <li>Pendampingan statistik sektoral OPD prioritas</li>
-            <li>Peningkatan pemahaman standar statistik</li>
-            <li>Perbaikan metadata dan kualitas data sektoral</li>
-            <li>Monitoring dan evaluasi kegiatan statistik sektoral</li>
+            @forelse($targets as $target)
+                {{-- Hanya tampilkan yang is_active == true (sudah difilter di controller sebenarnya, tapi jaga-jaga) --}}
+                @if($target->is_active) 
+                    <li>
+                        <i class="fas fa-check-circle" style="margin-right: 10px; color: var(--bps-green)"></i>
+                        {{ $target->judul_target }}
+                    </li>
+                @endif
+            @empty
+                <li>Belum ada target bulanan yang ditetapkan.</li>
+            @endforelse
         </ul>
     </div>
 </section>
 
-
-
-{{-- <section id="hirarki" class="section-green">
-    <div class="container">
-        <h2 class="section-title">Berita Terkini</h2>
-        <div class="grid humas-grid">
-            <div class="humas-card">
-                <img src="{{ asset('images/test2.jpg') }}" alt="Kegiatan">
-                <div class="humas-content">
-                    <span class="date">12 Januari 2026</span>
-                    <h3>Sosialisasi Statistik Sektoral</h3>
-                    <p>Kegiatan sosialisasi statistik sektoral guna meningkatkan kualitas data.</p>
-                </div>
-            </div>
-            <div class="humas-card">
-                <img src="{{ asset('images/test2.jpg') }}" alt="Rapat">
-                <div class="humas-content">
-                    <span class="date">05 Januari 2026</span>
-                    <h3>Rapat Koordinasi Data</h3>
-                    <p>Rapat koordinasi internal dalam rangka penyusunan publikasi statistik daerah.</p>
-                </div>
-            </div>
-            <div class="humas-card">
-                <img src="{{ asset('images/test2.jpg') }}" alt="Pelatihan">
-                <div class="humas-content">
-                    <span class="date">20 Desember 2025</span>
-                    <h3>Pelatihan Pengolahan Data</h3>
-                    <p>Pelatihan pengolahan dan analisis data statistik bagi pegawai.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> --}}
-
-{{-- <section id="kontak" class="section-dark">
-    <div class="container">
-        <h2 class="section-title">Kumpulan Link BPS</h2>
-        <div class="contact-icons">
-            <a href="#" class="contact-item" data-tooltip="Rekomendasi"><img src="{{ asset('images/romantik.png') }}"><span>Rekomendasi</span></a>
-            <a href="#" class="contact-item" data-tooltip="Sirusa"><img src="{{ asset('images/sirusa.png') }}" class="icon-big"><span>Sirusa</span></a>
-            <a href="#" class="contact-item" data-tooltip="Indah Hub"><img src="{{ asset('images/indah.png') }}" class="icon-big"><span>Indah Hub</span></a>
-            <button class="contact-item" onclick="openModal()"><img src="{{ asset('images/spbe.png') }}"><span>Website Pembinaan</span></button>
-        </div>
-    </div>
-</section> --}}
+{{-- SECTION KEGIATAN --}}
 <section id="fungsi" class="section-blue">
     <div class="container">
         <h2 class="statistik-title">
@@ -121,29 +92,25 @@
             STATISTIK SEKTORAL
         </h2>
         <div class="news-feed-container" id="scrollContainer">
-            @php
-                $trending = [
-                    ['title' => 'Gaming Industry 2026', 'desc' => 'Konsol generasi baru rilis bulan depan.', 'img' => 'https://images.unsplash.com/photo-1511512578047-dfb367046420?w=600'],
-                    ['title' => 'Artikel Coding', 'desc' => 'Tutorial Python untuk pemula.', 'img' => 'https://images.unsplash.com/photo-1493612276216-ee3925520721?w=600'],
-                    ['title' => 'Supercar Listrik', 'desc' => 'Kecepatan 0-100 hanya 1.9 detik.', 'img' => 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600'],
-                    ['title' => 'Cuaca Ekstrem', 'desc' => 'Badai salju melanda Eropa utara.', 'img' => 'https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=600'],
-                ];
-            @endphp
-
-            @foreach($trending as $item)
+            @forelse($kegiatans as $kegiatan)
             <div class="news-card-trending">
-                <img src="{{ $item['img'] }}" alt="">
+                {{-- Foto kegiatan dari database --}}
+                <img src="{{ asset('storage/' . $kegiatan->foto) }}" alt="{{ $kegiatan->judul }}">
                 <div class="overlay-trending"></div>
                 <div class="content-trending">
-                    <h2>{{ $item['title'] }}</h2>
-                    <p>{{ $item['desc'] }}</p>
+                    <small style="color: var(--bps-orange);">{{ $kegiatan->created_at->format('d M Y') }}</small>
+                    <h2>{{ $kegiatan->judul }}</h2>
+                    <p>{{ Str::limit($kegiatan->deskripsi, 100) }}</p>
                 </div>
             </div>
-            @endforeach
+            @empty
+            <p style="color: white; text-align: center; width: 100%;">Belum ada dokumentasi kegiatan.</p>
+            @endforelse
         </div>
     </div>
 </section>
 
+{{-- MODAL KONTAK --}}
 <div class="modal" id="contactModal">
     <div class="modal-content">
         <h3>Kontak Resmi BPS</h3>
@@ -155,39 +122,19 @@
 
 @section('scripts')
 <script>
-    // SLIDER
-    const slides = document.querySelectorAll(".slide");
-    const dots = document.querySelectorAll(".dot");
-    let currentIdx = 0;
-
-    function showSlide(n){
-        slides.forEach(s => s.classList.remove("active"));
-        dots.forEach(d => d.classList.remove("active"));
-        slides[n].classList.add("active");
-        dots[n].classList.add("active");
-        currentIdx = n;
-    }
-
-    dots.forEach(d => {
-        d.onclick = () => showSlide(parseInt(d.dataset.slide));
-    });
-
-    setInterval(() => {
-        currentIdx = (currentIdx + 1) % slides.length;
-        showSlide(currentIdx);
-    }, 5000);
-
     // MODAL
     function openModal() { document.getElementById('contactModal').style.display = 'flex'; }
     function closeModal() { document.getElementById('contactModal').style.display = 'none'; }
 
-    // HORIZONTAL SCROLL
+    // HORIZONTAL SCROLL UNTUK KEGIATAN
     const container = document.getElementById("scrollContainer");
-    container.addEventListener("wheel", (evt) => {
-        if (Math.abs(evt.deltaY) > Math.abs(evt.deltaX)) {
-            evt.preventDefault();
-            container.scrollLeft += evt.deltaY;
-        }
-    });
+    if(container) {
+        container.addEventListener("wheel", (evt) => {
+            if (Math.abs(evt.deltaY) > Math.abs(evt.deltaX)) {
+                evt.preventDefault();
+                container.scrollLeft += evt.deltaY;
+            }
+        });
+    }
 </script>
 @endsection

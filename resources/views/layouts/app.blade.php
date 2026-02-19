@@ -773,6 +773,71 @@
     }
 }
 
+/* ================== FOOTER BARU (CONTACT PERSON STYLE) ================== */
+.footer-bps {
+    background: #e2efff; /* Warna latar biru sangat muda sesuai gambar */
+    padding: 40px 0 20px;
+    color: #d97706; /* Warna teks oranye gelap */
+}
+
+.footer-title-main {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: #F3921E;
+}
+
+.footer-container {
+    max-width: 1000px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Membagi dua kolom */
+    gap: 20px 60px;
+    padding: 0 20px;
+}
+
+.footer-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.footer-item img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.footer-item a {
+    color: #d97706;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-item a:hover {
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(217, 119, 6, 0.2);
+    font-size: 13px;
+    color: #64748b;
+}
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+    .footer-container {
+        grid-template-columns: 1fr; /* Menjadi satu kolom di HP */
+        gap: 15px;
+    }
+}
+
 
 
         /* SECTION & CARDS */
@@ -842,6 +907,7 @@
     <nav class="drawer-menu">
     <a href="{{ route('home') }}" onclick="closeDrawer()">Beranda</a>
     <a href="{{ route('profile') }}" onclick="closeDrawer()">Profile</a>
+    <a href="{{ route('links') }}" onclick="closeDrawer()">Kumpulan Link</a>
 </nav>
 
 </aside>
@@ -880,25 +946,51 @@
         @yield('content')
     </main>
 
-    <footer class="footer-bps">
-        <div class="footer-container">
-            <div class="footer-left">
-                <h3>Badan Pusat Statistik<br>Kabupaten Pasuruan</h3>
-                <p>Jl. Sultan Agung No.42<br>Email: bps3514@bps.go.id</p>
+    </main>
+
+    {{-- Hanya tampilkan footer jika BUKAN di halaman profile --}}
+   @if(!Route::is('profile') && !Route::is('home'))
+<footer class="footer-bps">
+    <h2 class="footer-title-main">Contact Person</h2>
+    
+    <div class="footer-container">
+        <div class="footer-left-group">
+            <div class="footer-item">
+                <span>🌐</span> <a href="https://pasuruankab.bps.go.id" target="_blank">pasuruankab.bps.go.id</a>
             </div>
-            <div class="footer-center"><img src="{{ asset('images/bps.png') }}" width="100"></div>
-            <div class="footer-right">
-                <p class="footer-title">Media Sosial</p>
-                <div class="social-icons">
-                    <a href="#"><img src="{{ asset('images/twitter.png') }}" width="20"></a>
-                    <a href="#"><img src="{{ asset('images/instagram.png') }}" width="20"></a>
-                    <a href="#"><img src="{{ asset('images/facebook.png') }}" width="20"></a>
-                    <a href="#"><img src="{{ asset('images/youtube.png') }}" width="20"></a>
-                </div>
+            <div class="footer-item" style="margin-top:15px;">
+                <span>🎧</span> 
+                <a href="https://halopst.web.bps.go.id" target="_blank">halopst.web.bps.go.id</a>
+            </div>
+            <div class="footer-item" style="margin-top:15px;">
+                <span>📞</span> 
+                <a href="https://wa.me/6281290003514" target="_blank">0812-9000-3514</a>
             </div>
         </div>
-        <div class="footer-bottom">© {{ date('Y') }} BPS Kabupaten Pasuruan</div>
-    </footer>
+
+        <div class="footer-right-group">
+            <div class="footer-item">
+                <span>✉️</span> 
+                <a href="mailto:bps3514@bps.go.id">bps3514@bps.go.id</a>
+            </div>
+            <div class="footer-item" style="margin-top:15px;">
+                <span>📍</span> 
+                <p>Kantor: Jl. Sultan Agung No.42, Pasuruan, Jawa Timur</p>
+            </div>
+            <div class="footer-item" style="margin-top:15px;">
+                <span>📞</span> 
+                <p>(0343) 423420</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        © {{ date('Y') }} Badan Pusat Statistik Kabupaten Pasuruan
+    </div>
+</footer>
+@endif
+
+    @yield('scripts')
 
     @yield('scripts')
 

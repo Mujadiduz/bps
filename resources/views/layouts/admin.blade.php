@@ -134,6 +134,12 @@
         <a href="{{ route('home') }}"><i class="fas fa-external-link-alt"></i> Ke Landing Page</a>
     </li>
 
+    <li class="nav-item {{ request()->routeIs('admin.settings') ? 'active' : '' }}">
+    <a href="{{ route('admin.settings') }}">
+        <i class="fas fa-cog"></i> Pengaturan Beranda
+    </a>
+</li>
+
     <li class="nav-item" style="border-top: 1px solid rgba(255,255,255,0.05); margin-top: 10px;">
         <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="color: #fb7185;">
             <i class="fas fa-sign-out-alt"></i> Keluar
